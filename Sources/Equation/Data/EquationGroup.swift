@@ -128,20 +128,37 @@ public struct EquationGroup {
 
     /// A description, like `V = IR`
     public var description: String {
-        // TODO: Respect the default item
-        let leftSide = self[.top(0)].equationSymbol
-        let top = Array(topGroup.units.enumerated()).filter({ index, _ in index != 0 }).map({ $1 })
-        let bottom = botGroup.units
+        switch defaultTarget ?? .top(0) {
+        case .top(let int):
+            let leftSide = self[.top(int)].equationSymbol
+            let top = Array(topGroup.units.enumerated()).filter({ index, _ in index != int }).map({ $1 })
+            let bottom = botGroup.units
 
-        let topString = top.map({ $0.equationSymbol }).joined()
-        let bottomString = bottom.map({ $0.equationSymbol }).joined()
+            let topString = top.map({ $0.equationSymbol }).joined()
+            let bottomString = bottom.map({ $0.equationSymbol }).joined()
 
-        if topString.isEmpty {
-            return "\(leftSide) = \(bottomString)"
-        } else if bottomString.isEmpty {
-            return "\(leftSide) = \(topString)"
-        } else {
-            return "\(leftSide) = \(topString)/\(bottomString)"
+            if topString.isEmpty {
+                return "\(leftSide) = \(bottomString)"
+            } else if bottomString.isEmpty {
+                return "\(leftSide) = \(topString)"
+            } else {
+                return "\(leftSide) = \(topString)/\(bottomString)"
+            }
+        case .bottom(let int):
+            let leftSide = self[.bottom(int)].equationSymbol
+            let top = topGroup.units
+            let bottom = Array(botGroup.units.enumerated()).filter({ index, _ in index != int }).map({ $1 })
+
+            let topString = top.map({ $0.equationSymbol }).joined()
+            let bottomString = bottom.map({ $0.equationSymbol }).joined()
+
+            if topString.isEmpty {
+                return "\(leftSide) = 1/\(bottomString)"
+            } else if bottomString.isEmpty {
+                return "\(leftSide) = \(topString)"
+            } else {
+                return "\(leftSide) = \(topString)/\(bottomString)"
+            }
         }
     }
 }

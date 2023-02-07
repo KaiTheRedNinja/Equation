@@ -46,16 +46,7 @@ final class EquationTests: XCTestCase {
     }
 
     func testEmptyLargeExample() throws {
-        let testEq = EquationGroup {
-            MultiplicationGroup {
-                EquationUnit.rho
-                EquationUnit.l
-            }
-            MultiplicationGroup {
-                EquationUnit.r
-                EquationUnit.a
-            }
-        }
+        let testEq = EquationGroup.rholra
 
         XCTAssertEqual(testEq.solve(target: .top(0), values: [:]), 0)
         XCTAssertEqual(testEq.solve(target: .top(1), values: [:]), 0)
@@ -64,16 +55,7 @@ final class EquationTests: XCTestCase {
     }
 
     func testDescriptions() throws {
-        let testEq = EquationGroup {
-            MultiplicationGroup {
-                EquationUnit.v
-            }
-            MultiplicationGroup {
-                EquationUnit.i
-                EquationUnit.r
-            }
-        }
-
-        XCTAssertEqual(testEq.description, "V = IR")
+        XCTAssertEqual(EquationGroup.vir.description, "V = IR")
+        XCTAssertEqual(EquationGroup.pv2r.description, "P = V^2/R")
     }
 }

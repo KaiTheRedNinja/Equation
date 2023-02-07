@@ -71,6 +71,16 @@ public extension EquationGroup {
             EquationUnit.i.squared()
         }
     }
+    static let rholra = EquationGroup {
+        MultiplicationGroup {
+            EquationUnit.rho
+            EquationUnit.l
+        }
+        MultiplicationGroup {
+            EquationUnit.r
+            EquationUnit.a
+        }
+    }
 
     static let allEquations: [EquationGroup] = [
         .vir,
@@ -79,6 +89,7 @@ public extension EquationGroup {
         .wqv,
         .pvi,
         .pv2r,
-        .pri2
+        .pri2,
+        .rholra
     ]
 }

@@ -78,12 +78,12 @@ struct EquationEqualView: View {
                 ZStack {
                     if unitRole != selected {
                         Color.gray
+                            .opacity(0.5)
                     } else {
                         Color.green
                     }
                 }
                 .cornerRadius(10)
-                .opacity(0.5)
             }
         }
         .buttonStyle(.plain)

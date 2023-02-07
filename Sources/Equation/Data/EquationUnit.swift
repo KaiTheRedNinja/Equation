@@ -37,7 +37,7 @@ public struct EquationUnit: Identifiable, Hashable, Equatable {
     /// eg. for V^2, it would input V^2 and output V (Volts)
     public var valueForUnit: (Double) -> Double = { $0 }
 
-    init(equationSymbol: String,
+    public init(equationSymbol: String,
          unitSymbol: String,
          unitName: String,
          unitPurpose: String) {

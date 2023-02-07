@@ -25,7 +25,7 @@ public struct EquationGroup {
     /// eg `V = IR` would have a default target of `.top(0)` for `V`
     public var defaultTarget: SolveTarget?
 
-    init(defaultTarget: SolveTarget? = nil,
+    public init(defaultTarget: SolveTarget? = nil,
          @EquationBuilder parts: () -> (MultiplicationGroup, MultiplicationGroup)) {
         self.defaultTarget = defaultTarget
         self.topGroup = parts().0

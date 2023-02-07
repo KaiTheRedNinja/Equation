@@ -12,7 +12,7 @@ public struct MultiplicationGroup {
     @UnitBuilder
     public var units: [EquationUnit]
 
-    init(@UnitBuilder units: () -> [EquationUnit]) {
+    public init(@UnitBuilder units: () -> [EquationUnit]) {
         self.units = units()
     }
 

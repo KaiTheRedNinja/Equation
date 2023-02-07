@@ -18,7 +18,7 @@ public struct EquationEqualView: View {
 
     @Namespace var namespace
 
-    init(equation: EquationGroup,
+    public init(equation: EquationGroup,
          selected: Binding<SolveTarget>) {
         self._equation = <-equation
         self._selected = selected

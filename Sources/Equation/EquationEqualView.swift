@@ -1,5 +1,5 @@
 //
-//  EquationTriangleView.swift
+//  EquationEqualView.swift
 //  Equation
 //
 //  Created by Kai Quan Tay on 6/2/23.
@@ -10,7 +10,7 @@ import Updating
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationTriangleView: View {
+struct EquationEqualView: View {
     @Updating var equation: EquationGroup
     @Binding var selected: SolveTarget
 
@@ -24,19 +24,25 @@ struct EquationTriangleView: View {
 
     var body: some View {
         HStack {
+            viewForUnit(unit: equation[selected], unitRole: selected)
+            Image(systemName: "equal")
             VStack {
                 HStack {
                     ForEach(Array(equation.topGroup.units.enumerated()),
                             id: \.offset) { index, unit in
-                        viewForUnit(unit: unit,
-                                    unitRole: .top(index))
+                        if selected != .top(index) {
+                            viewForUnit(unit: unit,
+                                        unitRole: .top(index))
+                        }
                     }
                 }
                 HStack {
                     ForEach(Array(equation.botGroup.units.enumerated()),
                             id: \.offset) { index, unit in
-                        viewForUnit(unit: unit,
-                                    unitRole: .bottom(index))
+                        if selected != .bottom(index) {
+                            viewForUnit(unit: unit,
+                                        unitRole: .bottom(index))
+                        }
                     }
                 }
                 .padding(.top, 10)
@@ -65,12 +71,15 @@ struct EquationTriangleView: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(1)
             }
+            .matchedGeometryEffect(id: unit.unitPurpose, in: namespace, properties: .size)
             .foregroundColor(.primary)
             .padding(5)
             .background {
                 ZStack {
                     if unitRole != selected {
                         Color.gray
+                    } else {
+                        Color.green
                     }
                 }
                 .cornerRadius(10)
@@ -78,28 +87,17 @@ struct EquationTriangleView: View {
             }
         }
         .buttonStyle(.plain)
-        .background {
-            if unitRole == selected {
-                selectionColor
-            }
-        }
-    }
-
-    var selectionColor: some View {
-        Color.green
-            .cornerRadius(10)
-            .matchedGeometryEffect(id: "selectionThing", in: namespace)
     }
 }
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationTriangleView_Previews: PreviewProvider {
+struct EquationEqalView_Previews: PreviewProvider {
     static var previews: some View {
-        EquationTriangleViewWrapper()
+        EquationEqualViewWrapper()
     }
 
-    struct EquationTriangleViewWrapper: View {
+    struct EquationEqualViewWrapper: View {
         @State var equation = EquationGroup {
             MultiplicationGroup {
                 EquationUnit.rho
@@ -120,7 +118,7 @@ struct EquationTriangleView_Previews: PreviewProvider {
                 Section {
                     HStack {
                         Spacer()
-                        EquationTriangleView(equation: equation, selected: $selected)
+                        EquationEqualView(equation: equation, selected: $selected)
                             .frame(height: 170)
                         Spacer()
                     }

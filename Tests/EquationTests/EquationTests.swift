@@ -62,4 +62,18 @@ final class EquationTests: XCTestCase {
         XCTAssertEqual(testEq.solve(target: .bottom(0), values: [:]), 0)
         XCTAssertEqual(testEq.solve(target: .bottom(1), values: [:]), 0)
     }
+
+    func testDescriptions() throws {
+        let testEq = EquationGroup {
+            MultiplicationGroup {
+                EquationUnit.v
+            }
+            MultiplicationGroup {
+                EquationUnit.i
+                EquationUnit.r
+            }
+        }
+
+        XCTAssertEqual(testEq.description, "V = IR")
+    }
 }

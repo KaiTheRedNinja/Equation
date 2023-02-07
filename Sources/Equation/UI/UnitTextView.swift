@@ -9,22 +9,21 @@ import SwiftUI
 import Updating
 
 @available(iOS 15.0, *)
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 public struct UnitTextView: View {
     @Updating var text: String
+    @Updating var font: Font = .system(.title, design: .serif, weight: .semibold)
 
-    init(_ text: String) {
+    public init(_ text: String,
+                font: Font = .system(.title, design: .serif, weight: .semibold)) {
         self._text = <-text
+        self._font = <-font
     }
 
     public var body: some View {
         if #available(iOS 16.0, *) {
-            if #available(macOS 13.0, *) {
-                content
-                    .font(.system(.title, design: .serif, weight: .semibold))
-            } else {
-                content
-            }
+            content
+                .font(font)
         } else {
             content
         }
@@ -65,6 +64,7 @@ public struct UnitTextView: View {
 }
 
 @available(iOS 15.0, *)
+@available(macOS 13.0, *)
 struct UnitTestView_Previews: PreviewProvider {
     static var previews: some View {
         UnitTextView("V^2")

@@ -9,7 +9,7 @@ import SwiftUI
 import Updating
 
 @available(iOS 15.0, *)
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 public struct EquationTriangleView: View {
     /// The equation to represent
     @Updating var equation: EquationGroup
@@ -97,7 +97,7 @@ public struct EquationTriangleView: View {
 }
 
 @available(iOS 15.0, *)
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 struct EquationTriangleView_Previews: PreviewProvider {
     static var previews: some View {
         EquationTriangleViewWrapper()
@@ -149,7 +149,7 @@ struct EquationTriangleView_Previews: PreviewProvider {
                     }), formatter: NumberFormatter())
                     .multilineTextAlignment(.trailing)
                 }
-                Text(unit.unitSymbol)
+                UnitTextView(unit.unitSymbol, font: .system(.body, design: .serif))
             }
             .matchedGeometryEffect(id: unit.id, in: namespace)
         }

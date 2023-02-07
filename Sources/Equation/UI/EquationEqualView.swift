@@ -9,7 +9,7 @@ import SwiftUI
 import Updating
 
 @available(iOS 15.0, *)
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 public struct EquationEqualView: View {
     /// The equation to represent
     @Updating var equation: EquationGroup
@@ -107,7 +107,7 @@ public struct EquationEqualView: View {
 }
 
 @available(iOS 15.0, *)
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 struct EquationEqualView_Previews: PreviewProvider {
     static var previews: some View {
         EquationEqualViewWrapper()

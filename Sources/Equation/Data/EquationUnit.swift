@@ -7,27 +7,27 @@
 
 import Foundation
 
-struct EquationUnit: Identifiable, Hashable, Equatable {
-    static func == (lhs: EquationUnit, rhs: EquationUnit) -> Bool {
+public struct EquationUnit: Identifiable, Hashable, Equatable {
+    public static func == (lhs: EquationUnit, rhs: EquationUnit) -> Bool {
         lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    var id: String { "\(equationSymbol) \(unitSymbol) \(unitName) \(unitPurpose)" }
+    public var id: String { "\(equationSymbol) \(unitSymbol) \(unitName) \(unitPurpose)" }
 
     private let rawEquationSymbol: String
-    var equationSymbol: String
-    var unitSymbol: String
-    var unitName: String
-    var unitPurpose: String
+    public var equationSymbol: String
+    public var unitSymbol: String
+    public var unitName: String
+    public var unitPurpose: String
 
     // eg. for V^2, it would input V (volts) and output V squred
-    var unitForValue: (Double) -> Double = { $0 }
+    public var unitForValue: (Double) -> Double = { $0 }
     // eg. for V^2, it would input V^2 and output V (Volts)
-    var valueForUnit: (Double) -> Double = { $0 }
+    public var valueForUnit: (Double) -> Double = { $0 }
 
     init(equationSymbol: String,
          unitSymbol: String,
@@ -40,7 +40,7 @@ struct EquationUnit: Identifiable, Hashable, Equatable {
         self.unitPurpose = unitPurpose
     }
 
-    func squared() -> EquationUnit {
+    public func squared() -> EquationUnit {
         var squared = self
         squared.equationSymbol = "\(rawEquationSymbol)^2"
         squared.valueForUnit = { $0 * $0 }
@@ -50,7 +50,7 @@ struct EquationUnit: Identifiable, Hashable, Equatable {
     }
 }
 
-extension EquationUnit {
+public extension EquationUnit {
     static let w: EquationUnit = .init(equationSymbol: "W",
                                        unitSymbol: "J",
                                        unitName: "Joules",

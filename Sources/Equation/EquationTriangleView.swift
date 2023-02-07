@@ -10,7 +10,7 @@ import Updating
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationTriangleView: View {
+public struct EquationTriangleView: View {
     @Updating var equation: EquationGroup
     @Binding var selected: SolveTarget
 
@@ -22,7 +22,7 @@ struct EquationTriangleView: View {
         self._selected = selected
     }
 
-    var body: some View {
+    public var body: some View {
         HStack {
             VStack {
                 HStack {
@@ -94,7 +94,7 @@ struct EquationTriangleView: View {
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationTriangleView_Previews: PreviewProvider {
+private struct EquationTriangleView_Previews: PreviewProvider {
     static var previews: some View {
         EquationTriangleViewWrapper()
     }

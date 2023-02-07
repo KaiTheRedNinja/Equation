@@ -10,7 +10,7 @@ import Updating
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationEqualView: View {
+public struct EquationEqualView: View {
     @Updating var equation: EquationGroup
     @Binding var selected: SolveTarget
 
@@ -22,7 +22,7 @@ struct EquationEqualView: View {
         self._selected = selected
     }
 
-    var body: some View {
+    public var body: some View {
         HStack {
             viewForUnit(unit: equation[selected], unitRole: selected)
             Image(systemName: "equal")
@@ -104,7 +104,7 @@ struct EquationEqualView: View {
 
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
-struct EquationEqalView_Previews: PreviewProvider {
+private struct EquationEqalView_Previews: PreviewProvider {
     static var previews: some View {
         EquationEqualViewWrapper()
     }

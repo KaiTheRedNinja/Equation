@@ -1,52 +1,22 @@
 //
-//  MultiplicationGroup.swift
+//  EquationGroup.swift
 //  
 //
-//  Created by Kai Quan Tay on 6/2/23.
+//  Created by Kai Quan Tay on 7/2/23.
 //
 
 import Foundation
 
-struct MultiplicationGroup {
-    @UnitBuilder
-    var units: [EquationUnit]
-
-    init(@UnitBuilder units: () -> [EquationUnit]) {
-        self.units = units()
-    }
-
-    func evaluate(values: [Double]) -> Double {
-        assert(values.count == units.count)
-        return Array(units.enumerated()).reduce(Double(1)) { partialResult, value in
-            partialResult * value.element.valueForUnit(values[value.offset])
-        }
-    }
-
-    func solve(index: Int, given values: [Double], total: Double) -> Double {
-        assert(values.count == units.count-1)
-        // calculate the total of everything else
-        let otherElements = Array(units.enumerated()).filter({ $0.offset != index }).map({ $1 })
-        let otherTotal = Array(otherElements.enumerated()).reduce(Double(1)) { partialResult, value in
-            partialResult * value.element.valueForUnit(values[value.offset])
-        }
-        let result = units[index].unitForValue(total/otherTotal)
-        if result.isNaN {
-            return 0
-        }
-        return result
-    }
-}
-
-struct EquationGroup {
-    var topGroup: MultiplicationGroup
-    var botGroup: MultiplicationGroup
-    var flatUnits: [(EquationUnit, SolveTarget)] {
-//        topGroup.units + botGroup.units
+public struct EquationGroup {
+    public var topGroup: MultiplicationGroup
+    public var botGroup: MultiplicationGroup
+    public var flatUnits: [(EquationUnit, SolveTarget)] {
+        //        topGroup.units + botGroup.units
         topGroup.units.enumerated().map({ ($1, .top($0)) }) +
         botGroup.units.enumerated().map({ ($1, .bottom($0)) })
     }
 
-    var defaultTarget: SolveTarget?
+    public var defaultTarget: SolveTarget?
 
     init(defaultTarget: SolveTarget? = nil,
          @EquationBuilder parts: () -> (MultiplicationGroup, MultiplicationGroup)) {
@@ -55,7 +25,7 @@ struct EquationGroup {
         self.botGroup = parts().1
     }
 
-    func solve(target: SolveTarget, topValues: [Double], bottomValues: [Double]) -> Double {
+    public func solve(target: SolveTarget, topValues: [Double], bottomValues: [Double]) -> Double {
         // solve
         switch target {
         case .top(let int):
@@ -71,7 +41,7 @@ struct EquationGroup {
         }
     }
 
-    func solve(target: SolveTarget, values: [EquationUnit: Double]) -> Double {
+    public func solve(target: SolveTarget, values: [EquationUnit: Double]) -> Double {
         // find the values
         let topValues = topGroup.units.enumerated().compactMap { index, unit in
             target == .top(index) ? nil : (values[unit] ?? 0)
@@ -83,7 +53,7 @@ struct EquationGroup {
         return solve(target: target, topValues: topValues, bottomValues: botValues)
     }
 
-    func solve(target: EquationUnit, values: [EquationUnit: Double]) -> Double {
+    public func solve(target: EquationUnit, values: [EquationUnit: Double]) -> Double {
         // find the solve target for the unit
         var solveTarget: SolveTarget = .top(-1)
         if let top = topGroup.units.firstIndex(of: target) {
@@ -96,7 +66,7 @@ struct EquationGroup {
         return solve(target: solveTarget, values: values)
     }
 
-    func target(current: SolveTarget) -> SolveTarget {
+    public func target(current: SolveTarget) -> SolveTarget {
         // if current is valid, return it. Else, use default or .top(0)
         switch current {
         case .top(let int):
@@ -116,7 +86,7 @@ struct EquationGroup {
         return .top(0)
     }
 
-    subscript (role: SolveTarget) -> EquationUnit {
+    public subscript (role: SolveTarget) -> EquationUnit {
         switch role {
         case .top(let int):
             return topGroup.units[int]
@@ -126,20 +96,8 @@ struct EquationGroup {
     }
 }
 
-enum SolveTarget: Equatable, Hashable {
-    case top(Int)
-    case bottom(Int)
-}
-
 @resultBuilder
-struct UnitBuilder {
-    static func buildBlock(_ components: EquationUnit...) -> [EquationUnit] {
-        Array(components)
-    }
-}
-
-@resultBuilder
-struct EquationBuilder {
+public struct EquationBuilder {
     static func buildBlock(_ components: MultiplicationGroup...) -> (MultiplicationGroup, MultiplicationGroup) {
         assert(components.count == 2)
         return (components[0], components[1])

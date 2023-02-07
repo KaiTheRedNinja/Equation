@@ -71,4 +71,14 @@ public extension EquationGroup {
             EquationUnit.i.squared()
         }
     }
+
+    static let allEquations: [EquationGroup] = [
+        .vir,
+        .qit,
+        .wpt,
+        .wqv,
+        .pvi,
+        .pv2r,
+        .pri2
+    ]
 }

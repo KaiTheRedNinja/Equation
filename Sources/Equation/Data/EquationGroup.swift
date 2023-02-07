@@ -127,7 +127,7 @@ public struct EquationGroup {
     }
 
     /// A description, like `V = IR`
-    var description: String {
+    public var description: String {
         // TODO: Respect the default item
         let leftSide = self[.top(0)].equationSymbol
         let top = Array(topGroup.units.enumerated()).filter({ index, _ in index != 0 }).map({ $1 })

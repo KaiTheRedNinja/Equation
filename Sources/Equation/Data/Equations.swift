@@ -8,7 +8,7 @@
 import Foundation
 
 public extension EquationGroup {
-    public static let vir = EquationGroup {
+    static let vir = EquationGroup {
         MultiplicationGroup {
             EquationUnit.v
         }
@@ -17,7 +17,7 @@ public extension EquationGroup {
             EquationUnit.r
         }
     }
-    public static let qit = EquationGroup {
+    static let qit = EquationGroup {
         MultiplicationGroup {
             EquationUnit.q
         }
@@ -26,7 +26,7 @@ public extension EquationGroup {
             EquationUnit.t
         }
     }
-    public static let wpt = EquationGroup {
+    static let wpt = EquationGroup {
         MultiplicationGroup {
             EquationUnit.w
         }
@@ -35,7 +35,7 @@ public extension EquationGroup {
             EquationUnit.t
         }
     }
-    public static let wqv = EquationGroup {
+    static let wqv = EquationGroup {
         MultiplicationGroup {
             EquationUnit.w
         }
@@ -44,7 +44,7 @@ public extension EquationGroup {
             EquationUnit.v
         }
     }
-    public static let pvi = EquationGroup {
+    static let pvi = EquationGroup {
         MultiplicationGroup {
             EquationUnit.p
         }
@@ -53,7 +53,7 @@ public extension EquationGroup {
             EquationUnit.i
         }
     }
-    public static let pv2r = EquationGroup(defaultTarget: .bottom(0)) {
+    static let pv2r = EquationGroup(defaultTarget: .bottom(0)) {
         MultiplicationGroup {
             EquationUnit.v.squared()
         }
@@ -62,7 +62,7 @@ public extension EquationGroup {
             EquationUnit.r
         }
     }
-    public static let pri2 = EquationGroup {
+    static let pri2 = EquationGroup {
         MultiplicationGroup {
             EquationUnit.p
         }
@@ -72,7 +72,7 @@ public extension EquationGroup {
         }
     }
 
-    public static let allEquations: [EquationGroup] = [
+    static let allEquations: [EquationGroup] = [
         .vir,
         .qit,
         .wpt,

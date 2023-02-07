@@ -45,12 +45,24 @@ struct EquationEqualView: View {
                         }
                     }
                 }
-                .padding(.top, 10)
+                .padding(.top, onlyOneMulGroup ? 0 : 10)
             }
+            .padding(.leading, onlyOneMulGroup ? 1 : 0)
             .overlay {
-                Color.primary
-                    .frame(height: 1)
+                if !onlyOneMulGroup {
+                    Color.primary
+                        .frame(height: 1)
+                }
             }
+        }
+    }
+
+    var onlyOneMulGroup: Bool {
+        switch selected {
+        case .top(_):
+            return equation.topGroup.units.count-1 == 0
+        case .bottom(_):
+            return equation.botGroup.units.count-1 == 0
         }
     }
 

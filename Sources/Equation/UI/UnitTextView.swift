@@ -9,6 +9,7 @@ import SwiftUI
 import Updating
 
 @available(iOS 15.0, *)
+@available(macOS 12.0, *)
 public struct UnitTextView: View {
     @Updating var text: String
 
@@ -18,8 +19,12 @@ public struct UnitTextView: View {
 
     public var body: some View {
         if #available(iOS 16.0, *) {
-            content
-                .font(.system(.title, design: .serif, weight: .semibold))
+            if #available(macOS 13.0, *) {
+                content
+                    .font(.system(.title, design: .serif, weight: .semibold))
+            } else {
+                content
+            }
         } else {
             content
         }

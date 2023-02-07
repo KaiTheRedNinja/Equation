@@ -8,6 +8,7 @@
 import Foundation
 
 public struct MultiplicationGroup {
+    /// The units of the group
     @UnitBuilder
     public var units: [EquationUnit]
 
@@ -15,6 +16,8 @@ public struct MultiplicationGroup {
         self.units = units()
     }
 
+    /// Given all the values, it evaluates the result of multiplying them all together,
+    /// respecting things like if a unit is marked as squared.
     public func evaluate(values: [Double]) -> Double {
         assert(values.count == units.count)
         return Array(units.enumerated()).reduce(Double(1)) { partialResult, value in
@@ -22,6 +25,8 @@ public struct MultiplicationGroup {
         }
     }
 
+    /// Solves for a unit given the other values and the total value,
+    /// respecting things like if a unit is marked as squared.
     public func solve(index: Int, given values: [Double], total: Double) -> Double {
         assert(values.count == units.count-1)
         // calculate the total of everything else
@@ -37,8 +42,11 @@ public struct MultiplicationGroup {
     }
 }
 
+/// The role of a specific unit within an ``EquationGroup``
 public enum SolveTarget: Equatable, Hashable {
+    /// Item n of the numerator
     case top(Int)
+    /// Item n of the denominator
     case bottom(Int)
 }
 

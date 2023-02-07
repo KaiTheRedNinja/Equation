@@ -11,7 +11,9 @@ import Updating
 @available(iOS 15.0, *)
 @available(macOS 12.0, *)
 public struct EquationTriangleView: View {
+    /// The equation to represent
     @Updating var equation: EquationGroup
+    /// The selected unit
     @Binding var selected: SolveTarget
 
     @Namespace var namespace
@@ -25,6 +27,7 @@ public struct EquationTriangleView: View {
     public var body: some View {
         HStack {
             VStack {
+                // numerator
                 HStack {
                     ForEach(Array(equation.topGroup.units.enumerated()),
                             id: \.offset) { index, unit in
@@ -32,6 +35,7 @@ public struct EquationTriangleView: View {
                                     unitRole: .top(index))
                     }
                 }
+                // denominator
                 HStack {
                     ForEach(Array(equation.botGroup.units.enumerated()),
                             id: \.offset) { index, unit in

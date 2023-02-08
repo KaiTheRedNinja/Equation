@@ -12,12 +12,19 @@ import Updating
 @available(macOS 13.0, *)
 public struct UnitTextView: View {
     @Updating var text: String
-    @Updating var font: Font = .system(.title, design: .serif, weight: .semibold)
+    @Updating var font: Font
 
+    @available(iOS 16.0, *)
     public init(_ text: String,
                 font: Font = .system(.title, design: .serif, weight: .semibold)) {
         self._text = <-text
         self._font = <-font
+    }
+
+    @available(iOS 15.0, *)
+    public init(_ text: String) {
+        self._text = <-text
+        self._font = <-.body
     }
 
     public var body: some View {

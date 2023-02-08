@@ -96,7 +96,7 @@ public struct EquationTriangleView: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 @available(macOS 13.0, *)
 struct EquationTriangleView_Previews: PreviewProvider {
     static var previews: some View {
